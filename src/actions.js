@@ -201,9 +201,7 @@ module.exports = {
 			description: 'Reboot the HELO. The device may report errors while it is non-responsive during reboot.',
 			options: [],
 			callback: async (event) => {
-				const result = await self.connection.sendRequest(
-					'action=set&paramid=eParamID_Reboot&value=1&configid=0'
-				)
+				const result = await self.connection.sendRequest('action=set&paramid=eParamID_Reboot&value=1&configid=0')
 				self.log('debug', 'action call: Reboot result: ' + JSON.stringify(result))
 
 				if (result.status === 'success') {
@@ -276,8 +274,9 @@ module.exports = {
 					useVariables: true,
 				},
 			],
-			callback: async (event) => {
-				let cmd = 'FilenamePrefix&value=' + event.options.fileName
+			callback: async (event, context) => {
+				const fileName = await context.parseVariablesInString(event.options.fileName)
+				let cmd = 'FilenamePrefix&value=' + fileName
 				await sendCommand(cmd)
 			},
 		}
