@@ -40,6 +40,7 @@ class HeloInstance extends InstanceBase {
 			recording_duration: '00:00:00:00',
 			streaming_duration: '00:00:00:00',
 			device_temperature: 0,
+			recording_path_alarm: false,
 			scheduler_current_event: null,
 			scheduler_next_event: null,
 			LastNameUpdateTime: 0,

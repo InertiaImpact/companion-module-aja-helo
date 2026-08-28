@@ -132,6 +132,20 @@ module.exports = {
 			},
 		}
 
+		feedbacks.recordingPathAlarm = {
+			type: 'boolean',
+			name: 'Recording Path Alarm',
+			description: 'Indicate that the HELO cannot access or write to its primary recording path',
+			defaultStyle: {
+				color: black,
+				bgcolor: red,
+			},
+			options: [],
+			callback: function () {
+				return self.STATE.recording_path_alarm
+			},
+		}
+
 		feedbacks.deviceTemperature = {
 			type: 'boolean',
 			name: 'Device Temperature',

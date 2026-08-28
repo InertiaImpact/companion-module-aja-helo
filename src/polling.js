@@ -135,6 +135,19 @@ module.exports = {
 
 				self.STATE.beer_goggles = result.response.value_name
 
+				// The HELO Plus returns alarm values as protobuf data encoded in base64.
+				// Its first field is the alarm state: 0 = inactive, 1 = active.
+				result = await self.connection.sendRequest('action=get&paramid=eParamID_Recording_Path_Alarm')
+
+				if (result.status === 'failed') {
+					self.updateStatus(InstanceStatus.ConnectionFailure, pollingErrorMsg)
+					self.log('error', 'polling: Failed to get Recording Path Alarm')
+					return
+				}
+
+				const alarmData = Buffer.from(result.response.value, 'base64')
+				self.STATE.recording_path_alarm = alarmData.length >= 2 && alarmData[0] === 0x08 && alarmData[1] === 1
+
 				standard_vars = [
 					['streaming_duration', 'eParamID_StreamingDuration'],
 					['stream1_duration', 'eParamID_Stream1_Duration'],

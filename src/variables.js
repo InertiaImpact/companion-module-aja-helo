@@ -22,6 +22,10 @@ module.exports = {
 				variableId: `storage_media_available`,
 			},
 			{
+				name: `Recording path alarm (1 = active)`,
+				variableId: `recording_path_alarm`,
+			},
+			{
 				name: `Helo Variable BeerGoggles`,
 				variableId: `beer_goggles`,
 			},
